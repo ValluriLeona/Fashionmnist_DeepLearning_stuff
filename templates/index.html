@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fashion MNIST Classifier</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .container { max-width: 600px; margin: auto; text-align: center; }
+        img { max-width: 200px; margin-top: 20px; border: 1px solid #ddd; }
+        table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+        th, td { border: 1px solid #aaa; padding: 8px; }
+        th { background: #eee; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Fashion MNIST Multi-Model Prediction</h2>
+
+        <form action="/predict" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <br><br>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if uploaded_image %}
+            <h3>Uploaded Image:</h3>
+            <img src="{{ uploaded_image }}" alt="Uploaded Image">
+
+            <h3>Predictions from All Models</h3>
+
+            <table>
+                <tr>
+                    <th>Model</th>
+                    <th>Prediction</th>
+                    <th>Confidence (%)</th>
+                </tr>
+                {% for r in results %}
+                <tr>
+                    <td>{{ r.model }}</td>
+                    <td>{{ r.prediction }}</td>
+                    <td>{{ r.confidence }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+</body>
+</html>
